@@ -364,7 +364,7 @@
     // Booking
     const form = document.getElementById('bookingForm');
     const submitBtn = document.getElementById('bookSubmit');
-    const statusEl = document.getElementById('bookStatus');
+    const rStatus = document.getElementById('bookStatus');
 
     async function submitBooking(payload){
       // Avoid CORS preflight by sending as x-www-form-urlencoded (simple request)
@@ -378,8 +378,8 @@
       try { return JSON.parse(text); } catch (e) { throw new Error(`HTTP ${res.status} ${res.statusText} -> ${text.slice(0,300)}`); }
     }
 
-    form?.addEventListener('submit', async (e)=>{
-      e.preventDefault(); statusEl.style.display='none'; statusEl.textContent=''; statusEl.removeAttribute('style');
+    rForm?.addEventListener('submit', async (e)=>{
+      e.preventDefault(); rStatus.style.display='none'; rStatus.textContent=''; rStatus.removeAttribute('style');
       if(!form.reportValidity()) return;
       const data = Object.fromEntries(new FormData(form).entries());
       submitBtn.disabled = true; submitBtn.textContent = 'Đang gửi…';
@@ -405,16 +405,16 @@ const payload = {
         };
         const res = await submitBooking(payload);
         if(res && res.ok){
-          statusEl.textContent = '✅ Đã nhận yêu cầu. Nhân viên sẽ liên hệ xác nhận sớm!';
-          statusEl.style.color = '#077263';
+          rStatus.textContent = '✅ Đã nhận yêu cầu. Nhân viên sẽ liên hệ xác nhận sớm!';
+          rStatus.style.color = '#077263';
         } else {
-          statusEl.textContent = '❌ Máy chủ phản hồi lỗi: ' + JSON.stringify(res);
-          statusEl.style.color = '#c1121f';
+          rStatus.textContent = '❌ Máy chủ phản hồi lỗi: ' + JSON.stringify(res);
+          rStatus.style.color = '#c1121f';
         }
-        statusEl.style.display='block'; form.reset();
+        rStatus.style.display='block'; rForm.reset();
       } catch(err) {
-        statusEl.textContent = '❌ Gửi không thành công. ' + err.message;
-        statusEl.style.color = '#c1121f'; statusEl.style.display = 'block';
+        rStatus.textContent = '❌ Gửi không thành công. ' + err.message;
+        rStatus.style.color = '#c1121f'; rStatus.style.display = 'block';
       } finally {
         submitBtn.disabled = false; submitBtn.textContent = 'Gửi yêu cầu';
       }
@@ -476,8 +476,8 @@ const payload = {
   const avgEl = document.getElementById('avgRating');
   const avgStarsEl = document.getElementById('avgStars');
   const countEl = document.getElementById('reviewCount');
-  const form = document.getElementById('reviewForm');
-  const statusEl = document.getElementById('reviewStatus');
+  const rForm = document.getElementById('reviewForm');
+  const rStatus = document.getElementById('reviewStatus');
 
   function starHTML(score) {
     let html = '';
@@ -555,8 +555,8 @@ const payload = {
       const res = await fetch(ENDPOINT, { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'}, body });
       const data = await res.json();
       if(data && data.ok) {
-        statusEl.style.color = '#077263';
-        statusEl.textContent = '✅ Cảm ơn bạn! Đánh giá đã được ghi nhận.';
+        rStatus.style.color = '#077263';
+        rStatus.textContent = '✅ Cảm ơn bạn! Đánh giá đã được ghi nhận.';
         // optimistic: prepend new review immediately
         const newItem = {
           name: (fd.get('name')||'').toString().trim(),
@@ -572,12 +572,12 @@ const payload = {
         // recalc average
         const avg = itemsCache.reduce((s,r)=>s+(Number(r.rating)||0),0)/itemsCache.length;
         renderAverage(avg, itemsCache.length);
-        form.reset();
+        rForm.reset();
         fetchReviews();
       } else throw new Error(JSON.stringify(data));
     } catch(e) {
-      statusEl.style.color = '#c1121f';
-      statusEl.textContent = '❌ Gửi đánh giá không thành công.';
+      rStatus.style.color = '#c1121f';
+      rStatus.textContent = '❌ Gửi đánh giá không thành công.';
       console.warn('reviews_add failed:', e);
     }
   });
