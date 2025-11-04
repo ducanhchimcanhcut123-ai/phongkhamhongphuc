@@ -90,6 +90,11 @@
 .review-form input,.review-form textarea, .review-form select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:#fff}
 .review-form button{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);padding:10px 14px;border-radius:12px;background:var(--brand);color:#fff;cursor:pointer}
 .review-meta{font-size:12px;color:#667085;display:flex;gap:8px;flex-wrap:wrap}
+
+/* Reviewers (people list) */
+.reviewers{display:flex;flex-wrap:wrap;gap:8px}
+.reviewer-chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);background:var(--bg-soft);padding:6px 10px;border-radius:999px;font-size:13px}
+.reviewer-chip .avatar{width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border)}
 </style>
 <style>
 /* Slider fix: use aspect-ratio and remove black bg */
@@ -322,7 +327,12 @@
     </form>
   </div>
 
-  <div class="review-list" id="reviewList"></div>
+   <div class="review-list" id="reviewList"></div>
+  <div style="margin-top:14px">
+    <h4 style="margin:0 0 8px">Người đã đánh giá</h4>
+    <div id="reviewersList" class="reviewers"></div>
+  </div>
+
 </div>
 
       </div>
@@ -459,6 +469,7 @@ const payload = {
 
 <script>
 (function(){
+  let itemsCache = [];
   let itemsCache = []; 
   const ENDPOINT = "https://script.google.com/macros/s/AKfycbwGdNQfu4HgcZxwqryrtBdAtp3IR9GDNcqdf08bQExW6fxUv_YJ5lYnDZYnWz3laVGE/exec";
   const listEl = document.getElementById('reviewList');
@@ -478,7 +489,25 @@ const payload = {
 
   function renderAverage(avg, count) {
     avgEl.textContent = (Math.round(avg*10)/10).toFixed(1);
-    countEl.textContent = `(${count} đánh giá)`;
+    countEl.textContent = `(${count} 
+  function renderReviewers(items){
+    const wrap = document.getElementById('reviewersList');
+    if(!wrap) return;
+    const names = [];
+    (items||[]).forEach(r=>{
+      const name = (r.name && r.name.trim()) ? r.name.trim() : 'Ẩn danh';
+      if(!names.includes(name)) names.push(name);
+    });
+    if(names.length === 0){
+      wrap.innerHTML = '<div style="font-size:13px;color:#667085">Chưa có người đánh giá.</div>';
+      return;
+    }
+    wrap.innerHTML = names.map((n,idx)=>{
+      const ini = n.split(' ').filter(Boolean).map(p=>p[0]).join('').slice(0,2).toUpperCase();
+      return `<span class="reviewer-chip"><span class="avatar">${ini}</span>${n}</span>`;
+    }).join('');
+  }
+đánh giá)`;
     avgStarsEl.innerHTML = starHTML(Math.round(avg));
   }
 
@@ -488,6 +517,16 @@ const payload = {
     listEl.innerHTML = items.map(r=>`<div class="review-card">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
         <b>${r.name||'Ẩn danh'}</b>
+        <div class="stars" aria-label="Điểm người dùng">${starHTML(Number(r.rating)||5)}</div>
+      </div>
+      <p style="margin:8px 0">${(r.comment||'').replace(/</g,'&lt;')}</p>
+      <div class="review-meta">
+        <span>Ngày: ${r.created_at||''}</span>
+        ${r.visit_date?`<span>Đã khám: ${r.visit_date}</span>`:''}
+      </div>
+    </div>`).join('');
+    renderReviewers(itemsCache);
+  }</b>
         <div class="stars" aria-label="Điểm người dùng">${starHTML(Number(r.rating)||5)}</div>
       </div>
       <p style="margin:8px 0">${(r.comment||'').replace(/</g,'&lt;')}</p>
@@ -529,6 +568,7 @@ const payload = {
         };
         itemsCache.unshift(newItem);
         renderReviews(itemsCache);
+        renderReviewers(itemsCache);
         // recalc average
         const avg = itemsCache.reduce((s,r)=>s+(Number(r.rating)||0),0)/itemsCache.length;
         renderAverage(avg, itemsCache.length);
