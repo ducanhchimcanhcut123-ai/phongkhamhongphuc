@@ -114,27 +114,34 @@
   transform: scale(1.1); /* hiệu ứng phóng nhẹ khi rê chuột */
   filter: brightness(1.2);
 }
-  </style>
+<style>
+  .social-icons img:hover {
+    transform: scale(1.1); /* hiệu ứng phóng nhẹ khi rê chuột */
+    filter: brightness(1.2);
+  }
+
+  /* Banner ngay dưới topbar */
   .banner {
-  width: 100%;
-  height: 280px;              /* chiều cao banner, bạn có thể chỉnh 200–400px tùy ý */
-  overflow: hidden;
-}
+    width: 100%;
+    height: 280px;              /* chiều cao banner, bạn có thể chỉnh 200–400px tùy ý */
+    overflow: hidden;
+  }
 
-.banner img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;           /* cắt ảnh gọn và cân đối */
-  border-bottom: 3px solid var(--brand); /* viền dưới cùng màu thương hiệu */
-}
-
+  .banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;           /* cắt ảnh gọn và cân đối */
+    border-bottom: 3px solid var(--brand); /* viền dưới cùng màu thương hiệu */
+  }
+</style>
 </head>
 
-</head>
 <body>
   <div class="banner">
-  <img src="https://dacsannamdinh.org/wp-content/uploads/2025/10/doi-ngu-y-bac-si-tan-tam-cua-phong-kham-da-khoa-hong-phuc-nam-dinh.jpg" 
-       alt="Ảnh bìa Phòng Khám Hồng Phúc Nam Định">
+  <div class="banner-overlay">
+    <h1>Phòng Khám Đa Khoa Hồng Phúc Nam Định</h1>
+    <p>Tận tâm – Uy tín – Chuyên nghiệp</p>
+  </div>
 </div>
 
   <a href="tel:0912466903">📞 091 246 69 03</a> · 
