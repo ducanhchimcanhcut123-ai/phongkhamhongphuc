@@ -114,6 +114,7 @@
   transform: scale(1.1); /* hiệu ứng phóng nhẹ khi rê chuột */
   filter: brightness(1.2);
 }
+</style>
 <style>
   .social-icons img:hover {
     transform: scale(1.1);
@@ -170,17 +171,17 @@
     filter: brightness(1.15);
   }
 </style>
+
+<style>
+/* Safety: keep header above banner */
+header { position: sticky; top: 0; z-index: 1000; }
+/* Safety: keep banner below header */
+.banner { position: relative; z-index: 1; }
+</style>
 </head>
 
 <body>
-  <div class="banner">
-  <div class="banner-overlay">
-    <h1>Phòng Khám Đa Khoa Hồng Phúc</h1>
-    <p>Tận tâm – Uy tín – Chuyên nghiệp</p>
-  </div>
-    <header>
-
-  <header>
+<header>
     <div class="container nav">
       <div class="brand">
 <img src="https://dacsannamdinh.org/wp-content/uploads/2025/10/doi-ngu-y-bac-si-tan-tam-cua-phong-kham-da-khoa-hong-phuc-nam-dinh.jpg"
@@ -199,6 +200,14 @@
       </div>
     </div>
   </header>
+
+  <div class="banner">
+  <div class="banner-overlay">
+    <h1>Phòng Khám Đa Khoa Hồng Phúc</h1>
+    <p>Tận tâm – Uy tín – Chuyên nghiệp</p>
+  </div>
+
+  
 
   <section class="hero">
     <div class="container">
