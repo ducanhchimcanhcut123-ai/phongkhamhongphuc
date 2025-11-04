@@ -205,11 +205,15 @@
     const statusEl = document.getElementById('bookStatus');
 
     async function submitBooking(payload){
-      const res = await fetch("https://script.google.com/macros/s/AKfycbwUM4I4GX33THe2LuGq0tzXaK7GOEfbinXT0rtvtT47UvFeh0vPQC5DZg2383ZLbbjI/exec",{
-        method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)
+      // Avoid CORS preflight by sending as x-www-form-urlencoded (simple request)
+      const body = new URLSearchParams(payload).toString();
+      const res = await fetch("https://script.google.com/macros/s/AKfycbwUM4I4GX33THe2LuGq0tzXaK7GOEfbinXT0rtvtT47UvFeh0vPQC5DZg2383ZLbbjI/exec", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+        body
       });
       const text = await res.text();
-      try{ return JSON.parse(text); }catch(e){ throw new Error(`HTTP ${res.status} ${res.statusText} -> ${text.slice(0,300)}`); }
+      try { return JSON.parse(text); } catch (e) { throw new Error(`HTTP ${res.status} ${res.statusText} -> ${text.slice(0,300)}`); }
     }
 
     form?.addEventListener('submit', async (e)=>{
@@ -217,16 +221,16 @@
       if(!form.reportValidity()) return;
       const data = Object.fromEntries(new FormData(form).entries());
       submitBtn.disabled = true; submitBtn.textContent = 'Đang gửi…';
-      try{
+      try {
         const payload = {
+          secret: 'ducanh30102003',
           full_name: (data.full_name||'').trim(),
           phone: (data.phone||'').trim(),
-          department: data.department || null,
-          preferred_datetime: data.preferred_datetime || null,
+          department: data.department || '',
+          preferred_datetime: data.preferred_datetime || '',
           note: data.note || '',
           source: data.source || 'landing_quan1',
-          submitted_at: new Date().toISOString(),
-          secret: 'ducanh30102003'
+          submitted_at: new Date().toISOString()
         };
         const res = await submitBooking(payload);
         if(res && res.ok){
@@ -237,10 +241,10 @@
           statusEl.style.color = '#c1121f';
         }
         statusEl.style.display='block'; form.reset();
-      }catch(err){
+      } catch(err) {
         statusEl.textContent = '❌ Gửi không thành công. ' + err.message;
         statusEl.style.color = '#c1121f'; statusEl.style.display = 'block';
-      }finally{
+      } finally {
         submitBtn.disabled = false; submitBtn.textContent = 'Gửi yêu cầu';
       }
     });
