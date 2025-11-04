@@ -75,6 +75,21 @@
 .clinic-slider {
   margin-left: 0.5cm !important; /* dịch sang phải 0.5cm */
 }
+
+/* Reviews widget */
+.reviews{display:grid;gap:12px}
+.review-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:14px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.reviews-header{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.stars{display:inline-flex;gap:4px;vertical-align:middle}
+.star{font-size:18px;opacity:.35}
+.star.filled{opacity:1}
+.rating-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bg-soft);border:1px solid var(--border);padding:6px 10px;border-radius:999px}
+.review-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:980px){.review-list{grid-template-columns:1fr}}
+.review-form .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.review-form input,.review-form textarea, .review-form select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:#fff}
+.review-form button{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);padding:10px 14px;border-radius:12px;background:var(--brand);color:#fff;cursor:pointer}
+.review-meta{font-size:12px;color:#667085;display:flex;gap:8px;flex-wrap:wrap}
 </style>
 <style>
 /* Slider fix: use aspect-ratio and remove black bg */
@@ -195,21 +210,15 @@
           <table class="pricing">
             <thead><tr><th>Dịch vụ</th><th>Giá từ (VNĐ)</th><th>Ghi chú</th></tr></thead>
             <tbody>
-              <tr><td>Khám chuyên khoa</td><td>Chờ admin cập nhật</td><td>Đặt lịch online: ưu tiên</td></tr>
-              <tr><td>Nội soi tai mũi họng</td><td>Chờ admin cập nhật</td><td>Giá chưa gồm chỉ định kèm</td></tr>
-              <tr><td>Siêu âm tổng quát</td><td>Chờ admin cập nhật</td><td>Trả kết quả điện tử</td></tr>
-              <tr><td>Xét nghiệm công thức máu</td><td>Chờ admin cập nhật</td><td>Trả trong ngày</td></tr>
+              <tr><td>Khám chuyên khoa</td><td>150.000</td><td>Đặt lịch online: ưu tiên</td></tr>
+              <tr><td>Nội soi tai mũi họng</td><td>350.000</td><td>Giá chưa gồm chỉ định kèm</td></tr>
+              <tr><td>Siêu âm tổng quát</td><td>250.000</td><td>Trả kết quả điện tử</td></tr>
+              <tr><td>Xét nghiệm công thức máu</td><td>120.000</td><td>Trả trong ngày</td></tr>
             </tbody>
           </table>
         </div>
 
-        <h2 id="danh-gia">Khách hàng nói gì?</h2>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
-          <div class="quote">“Tiếp đón nhanh, bác sĩ giải thích kỹ. Sẽ quay lại.” – Anh H.</div>
-          <div class="quote">“Cơ sở sạch sẽ, đặt lịch online tiện lợi.” – Chị M.</div>
-          <div class="quote">“Bảng giá rõ ràng, nhân viên nhiệt tình.” – Bạn T.</div>
-        </div>
-      </article>
+        </article>
 
       <aside>
         <div style="position:sticky;top:84px;display:grid;gap:16px">
@@ -262,6 +271,60 @@
           <div id="bookStatus"></div>
           <div style="margin-top:12px"><button class="btn primary" type="submit" id="bookSubmit">Gửi yêu cầu</button></div>
         </form>
+<hr style="border:none;border-top:1px solid var(--border);margin:16px 0"/>
+<h3>Đánh giá khách hàng</h3>
+<div class="reviews">
+  <div class="reviews-header">
+    <div class="rating-badge">
+      <span id="avgRating">4.9</span>/5
+      <div class="stars" id="avgStars" aria-label="Xếp hạng trung bình"></div>
+      <span id="reviewCount">(0 đánh giá)</span>
+    </div>
+    <div>Chia sẻ trải nghiệm của bạn 👇</div>
+  </div>
+
+  <div class="review-form card">
+    <form id="reviewForm">
+      <div class="row">
+        <div>
+          <label>Họ tên</label>
+          <input name="name" required placeholder="Nguyễn Văn A" autocomplete="name" />
+        </div>
+        <div>
+          <label>Chấm điểm</label>
+          <select name="rating" required>
+            <option value="5">5 ★ Tuyệt vời</option>
+            <option value="4">4 ★ Tốt</option>
+            <option value="3">3 ★ Bình thường</option>
+            <option value="2">2 ★ Chưa tốt</option>
+            <option value="1">1 ★ Kém</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label>Nhận xét</label>
+        <textarea name="comment" required placeholder="Dịch vụ, thái độ, thời gian chờ..."></textarea>
+      </div>
+      <div class="row">
+        <div>
+          <label>Số điện thoại (tuỳ chọn)</label>
+          <input name="phone" type="tel" inputmode="tel" placeholder="09xx xxx xxx" />
+        </div>
+        <div>
+          <label>Ngày khám (tuỳ chọn)</label>
+          <input name="visit_date" type="date" />
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <button type="submit">Gửi đánh giá</button>
+        <span id="reviewStatus" style="margin-left:10px;font-size:14px"></span>
+      </div>
+    </form>
+  </div>
+
+  <div class="review-list" id="reviewList"></div>
+</div>
+
       </div>
       <div id="map" class="card">
         <h2>Bản đồ</h2>
@@ -279,7 +342,8 @@
       </div>
       <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:12px;font-size:14px;opacity:.9">© 2025 IT Phòng Khám Đa Khoa Hồng Phúc. Bảo lưu mọi quyền.</div>
     </div>
-  </footer>
+
+</footer>
 
   <script>
     // Mobile menu toggle
@@ -392,5 +456,106 @@ const payload = {
   go(0); start();
 })();
 </script>
+
+<script>
+(function(){
+  let itemsCache = []; 
+  const ENDPOINT = "https://script.google.com/macros/s/AKfycbwGdNQfu4HgcZxwqryrtBdAtp3IR9GDNcqdf08bQExW6fxUv_YJ5lYnDZYnWz3laVGE/exec";
+  const listEl = document.getElementById('reviewList');
+  const avgEl = document.getElementById('avgRating');
+  const avgStarsEl = document.getElementById('avgStars');
+  const countEl = document.getElementById('reviewCount');
+  const form = document.getElementById('reviewForm');
+  const statusEl = document.getElementById('reviewStatus');
+
+  function starHTML(score) {
+    let html = '';
+    for (let i=1;i<=5;i++) {
+      html += `<span class="star ${i<=score?'filled':''}">★</span>`;
+    }
+    return html;
+  }
+
+  function renderAverage(avg, count) {
+    avgEl.textContent = (Math.round(avg*10)/10).toFixed(1);
+    countEl.textContent = `(${count} đánh giá)`;
+    avgStarsEl.innerHTML = starHTML(Math.round(avg));
+  }
+
+  function renderReviews(items) {
+    if(!Array.isArray(items)) items = [];
+    itemsCache = items.slice();
+    listEl.innerHTML = items.map(r=>`<div class="review-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+        <b>${r.name||'Ẩn danh'}</b>
+        <div class="stars" aria-label="Điểm người dùng">${starHTML(Number(r.rating)||5)}</div>
+      </div>
+      <p style="margin:8px 0">${(r.comment||'').replace(/</g,'&lt;')}</p>
+      <div class="review-meta">
+        <span>Ngày: ${r.created_at||''}</span>
+        ${r.visit_date?`<span>Đã khám: ${r.visit_date}</span>`:''}
+      </div>
+    </div>`).join('');
+  }</b>
+        <div class="stars" aria-label="Điểm người dùng">${starHTML(Number(r.rating)||5)}</div>
+      </div>
+      <p style="margin:8px 0">${(r.comment||'').replace(/</g,'&lt;')}</p>
+      <div class="review-meta">
+        <span>Ngày: ${r.created_at||''}</span>
+        ${r.visit_date?`<span>Đã khám: ${r.visit_date}</span>`:''}
+      </div>
+    </div>`).join('');
+  }
+
+  async function fetchReviews() {
+    try {
+      const body = new URLSearchParams({
+        action: 'reviews_list',
+        source: 'website phòng khám Hồng Phúc'
+      }).toString();
+      const res = await fetch(ENDPOINT, { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'}, body });
+      const data = await res.json();
+      if(data && data.ok) {
+        statusEl.style.color = '#077263';
+        statusEl.textContent = '✅ Cảm ơn bạn! Đánh giá đã được ghi nhận.';
+        // optimistic: prepend new review immediately
+        const newItem = {
+          name: (fd.get('name')||'').toString().trim(),
+          rating: (fd.get('rating')||'5').toString(),
+          comment: (fd.get('comment')||'').toString().trim(),
+          phone: (fd.get('phone')||'').toString().trim(),
+          visit_date: (fd.get('visit_date')||'').toString(),
+          created_at: createdAt
+        };
+        itemsCache.unshift(newItem);
+        renderReviews(itemsCache);
+        // recalc average
+        const avg = itemsCache.reduce((s,r)=>s+(Number(r.rating)||0),0)/itemsCache.length;
+        renderAverage(avg, itemsCache.length);
+        form.reset();
+        fetchReviews();
+      } else throw new Error(JSON.stringify(data));
+    } catch(e) {
+      statusEl.style.color = '#c1121f';
+      statusEl.textContent = '❌ Gửi đánh giá không thành công.';
+      console.warn('reviews_add failed:', e);
+    }
+  });
+
+  renderAverage(5, 0);
+  fetchReviews();
+
+  const ld = document.createElement('script');
+  ld.type = 'application/ld+json';
+  ld.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "MedicalClinic",
+    "name": "Phòng Khám Đa Khoa Hồng Phúc",
+    "aggregateRating": { "@type":"AggregateRating", "ratingValue":"4.9", "reviewCount":"1" }
+  });
+  document.head.appendChild(ld);
+})();
+</script>
+
 </body>
 </html>
