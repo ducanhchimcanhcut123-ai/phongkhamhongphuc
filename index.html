@@ -114,74 +114,30 @@
   transform: scale(1.1); /* hiệu ứng phóng nhẹ khi rê chuột */
   filter: brightness(1.2);
 }
-</style>
-<style>
-  .social-icons img:hover {
-    transform: scale(1.1);
-    filter: brightness(1.2);
-  }
-
-  /* Banner dạng nền có chữ nổi */
-  .banner {
-    width: 100%;
-    height: 320px; /* bạn có thể chỉnh 250–400px */
-    background: url('https://dacsannamdinh.org/wp-content/uploads/2025/10/doi-ngu-y-bac-si-tan-tam-cua-phong-kham-da-khoa-hong-phuc-nam-dinh.jpg')
-                center/cover no-repeat;
-    position: relative;
-    border-bottom: 3px solid var(--brand);
-  }
-
-  .banner-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.35); /* lớp mờ tối để chữ dễ đọc */
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-
-  .banner-overlay h1 {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-
-  .banner-overlay p {
-    font-size: 18px;
-    margin: 0;
-  }
-</style>
-  <style>
-  .banner {
-    width: 100%;
-    height: 320px;
-    background: url('https://dacsannamdinh.org/wp-content/uploads/2025/10/doi-ngu-y-bac-si-tan-tam-cua-phong-kham-da-khoa-hong-phuc-nam-dinh.jpg')
-                center/cover no-repeat;
-    position: relative;
-    border-bottom: 3px solid var(--brand);
-    overflow: hidden;
-    transition: transform 0.8s ease, filter 0.8s ease;
-  }
-
-  .banner:hover {
-    transform: scale(1.05);
-    filter: brightness(1.15);
-  }
-</style>
-
-<style>
-/* Safety: keep header above banner */
-header { position: sticky; top: 0; z-index: 1000; }
-/* Safety: keep banner below header */
-.banner { position: relative; z-index: 1; }
-</style>
+  </style>
 </head>
 
+</head>
 <body>
-<header>
+  <div class="topbar">
+    <div class="container">
+      <div>⏰ Sáng: 6h45–11h00 · Chiều: 13h45–17h30 (Thứ 2 – CN)</div>
+<div>
+  <a href="tel:0912466903">📞 091 246 69 03</a> · 
+  <a href="#map">📍 Xem bản đồ</a>
+  <span class="social-icons">
+  <a href="https://www.facebook.com/phongkhamdakhoaHongphucnamdinh" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
+  </a>
+  <a href="https://zalo.me/yourzalo" target="_blank">
+    <img src="zalo-logo-Gkg4wCs2_t.jpg" alt="Zalo" style="border-radius:6px">
+  </a>
+</span>
+
+</div>    </div>
+  </div>
+
+  <header>
     <div class="container nav">
       <div class="brand">
 <img src="https://dacsannamdinh.org/wp-content/uploads/2025/10/doi-ngu-y-bac-si-tan-tam-cua-phong-kham-da-khoa-hong-phuc-nam-dinh.jpg"
@@ -200,14 +156,6 @@ header { position: sticky; top: 0; z-index: 1000; }
       </div>
     </div>
   </header>
-
-  <div class="banner">
-  <div class="banner-overlay">
-    <h1>Phòng Khám Đa Khoa Hồng Phúc</h1>
-    <p>Tận tâm – Uy tín – Chuyên nghiệp</p>
-  </div>
-
-  
 
   <section class="hero">
     <div class="container">
