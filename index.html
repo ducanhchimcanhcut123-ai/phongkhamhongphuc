@@ -53,12 +53,34 @@
     gap:4px;
   }
 }
+
+.clinic-slider {
+  position: relative;
+  margin-right: -150px;
+  margin-left: -50px;
+}
+
+.clinic-slider .slides {
+  aspect-ratio: 16 / 9;
+  transform: scale(1.15);
+  transform-origin: center;
+}
+
+.hero-card:has(#co-so) {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.clinic-slider {
+  margin-left: 0.5cm !important; /* dịch sang phải 0.5cm */
+}
 </style>
 <style>
 /* Slider fix: use aspect-ratio and remove black bg */
 .clinic-slider{position:relative;border-radius:12px;overflow:hidden;background:transparent;margin-top:12px  margin-right:-100px; }
-.clinic-slider .slides { position: relative; height: 420px; padding-top: 0; }
-@media (max-width:980px){.clinic-slider .slides { position: relative; height: 420px; padding-top: 0; }}
+.clinic-slider .slides { position: relative; aspect-ratio: 16 / 9; height: auto; padding-top: 0; }
+@media (max-width:980px){.clinic-slider .slides { position: relative; aspect-ratio: 16 / 9; height: auto; padding-top: 0; }}
 .clinic-slider .slide{position:absolute;inset:0;opacity:0;transition:opacity .5s ease}
 .clinic-slider .slide.is-active{opacity:1}
 .clinic-slider img{width:100%;height:100%;object-fit:cover;display:block;background:#f0f2f5}
