@@ -116,22 +116,41 @@
 }
 <style>
   .social-icons img:hover {
-    transform: scale(1.1); /* hiệu ứng phóng nhẹ khi rê chuột */
+    transform: scale(1.1);
     filter: brightness(1.2);
   }
 
-  /* Banner ngay dưới topbar */
+  /* Banner dạng nền có chữ nổi */
   .banner {
     width: 100%;
-    height: 280px;              /* chiều cao banner, bạn có thể chỉnh 200–400px tùy ý */
-    overflow: hidden;
+    height: 320px; /* bạn có thể chỉnh 250–400px */
+    background: url('https://dacsannamdinh.org/wp-content/uploads/2025/10/doi-ngu-y-bac-si-tan-tam-cua-phong-kham-da-khoa-hong-phuc-nam-dinh.jpg')
+                center/cover no-repeat;
+    position: relative;
+    border-bottom: 3px solid var(--brand);
   }
 
-  .banner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;           /* cắt ảnh gọn và cân đối */
-    border-bottom: 3px solid var(--brand); /* viền dưới cùng màu thương hiệu */
+  .banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.35); /* lớp mờ tối để chữ dễ đọc */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .banner-overlay h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .banner-overlay p {
+    font-size: 18px;
+    margin: 0;
   }
 </style>
 </head>
