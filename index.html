@@ -335,7 +335,7 @@
     const statusEl = document.getElementById('bookStatus');
 
     async function submitBooking(payload){
-      const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwGdNQfu4HgcZxwqryrtBdAtp3IR9GDNcqdf08bQExW6fxUv_YJ5lYnDZYnWz3laVGE/exec';
+      const ENDPOINT = 'https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLhlWM4eO1Z4iIT6f6bIgAJR5igNWlwJgQKztamuVHUtLm-Ty2_TyGkLfQFuItDZjdoKtZ0sTbuajkes_Y9SEa2VzaPqI5Mm0H-GeDVPtXl97Tffst9ldUPTPX1V-TK-kHLZ4AxC4pZMiWycRmYC8wX0XMuRdMQaiTOiT_zgFj7r8InfDO8JZwKKgE4RMPFxjf7zzTv3gZQJBt3lD2ic4Xv6DCUynP8sFsVJz8mPdW2psRZI8BtMQqwNDIauyQeiNI9gN2jLOYeLspmKbfxnCeHSCLcAIQ&lib=MoUM9BqqpdE_9W9tsE3gHKOJT9qRvVgti';
       const res = await fetch(ENDPOINT,{
         method:'POST',
         headers:{'Content-Type':'application/json'},
