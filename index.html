@@ -115,14 +115,28 @@
   filter: brightness(1.2);
 }
   </style>
+  .banner {
+  width: 100%;
+  height: 280px;              /* chiều cao banner, bạn có thể chỉnh 200–400px tùy ý */
+  overflow: hidden;
+}
+
+.banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;           /* cắt ảnh gọn và cân đối */
+  border-bottom: 3px solid var(--brand); /* viền dưới cùng màu thương hiệu */
+}
+
 </head>
 
 </head>
 <body>
-  <div class="topbar">
-    <div class="container">
-      <div>⏰ Sáng: 6h45–11h00 · Chiều: 13h45–17h30 (Thứ 2 – CN)</div>
-<div>
+  <div class="banner">
+  <img src="https://dacsannamdinh.org/wp-content/uploads/2025/10/doi-ngu-y-bac-si-tan-tam-cua-phong-kham-da-khoa-hong-phuc-nam-dinh.jpg" 
+       alt="Ảnh bìa Phòng Khám Hồng Phúc Nam Định">
+</div>
+
   <a href="tel:0912466903">📞 091 246 69 03</a> · 
   <a href="#map">📍 Xem bản đồ</a>
   <span class="social-icons">
