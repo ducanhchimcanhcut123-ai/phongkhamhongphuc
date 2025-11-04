@@ -96,20 +96,24 @@
 .clinic-slider .dots button[aria-selected="true"]{background:#fff;width:22px;border-radius:999px}
 </style>
     <style>
-   .social-icons {
-  margin-left: 1cm;
+.social-icons {
+  margin-left: 1cm;      /* cách cụm icon sang phải 1cm */
   display: inline-flex;
   align-items: center;
-  gap: 1cm; /* khoảng cách giữa 2 icon */
+  gap: 0.5cm;            /* khoảng cách giữa 2 logo */
 }
 
-    .social-icons img {
-      vertical-align: middle;
-      transition: transform 0.2s;
-    }
-    .social-icons img:hover {
-      transform: scale(1.15);
-    }
+.social-icons img {
+  width: 22px;           /* kích thước logo chuẩn */
+  height: 22px;
+  vertical-align: middle;
+  transition: transform 0.25s, filter 0.25s;
+}
+
+.social-icons img:hover {
+  transform: scale(1.1); /* hiệu ứng phóng nhẹ khi rê chuột */
+  filter: brightness(1.2);
+}
   </style>
 </head>
 
