@@ -38,6 +38,25 @@
     @media (min-width:981px){.nav .btn.mobile{display:none}}
     #bookStatus{display:none;margin-top:10px;font-size:14px}
   </style>
+<style>
+/* Slider cơ sở phòng khám */
+.clinic-slider{position:relative;border-radius:12px;overflow:hidden;background:#000;margin-top:12px}
+.clinic-slider .slides{position:relative;height:0;padding-top:45%}
+@media (max-width:980px){.clinic-slider .slides{padding-top:56%}}
+.clinic-slider .slide{position:absolute;inset:0;opacity:0;transition:opacity .5s ease}
+.clinic-slider .slide.is-active{opacity:1}
+.clinic-slider img{width:100%;height:100%;object-fit:cover;display:block}
+.clinic-slider figcaption{position:absolute;left:0;right:0;bottom:0;padding:8px 12px;
+  color:#fff;background:linear-gradient(0deg,rgba(0,0,0,.45),rgba(0,0,0,0))}
+.clinic-slider .nav{position:absolute;top:50%;transform:translateY(-50%);
+  width:42px;height:42px;border:none;border-radius:999px;background:rgba(0,0,0,.45);
+  color:#fff;font-size:26px;line-height:42px;text-align:center;cursor:pointer}
+.clinic-slider .nav:hover{background:rgba(0,0,0,.65)}
+.clinic-slider .prev{left:10px}.clinic-slider .next{right:10px}
+.clinic-slider .dots{position:absolute;left:0;right:0;bottom:8px;display:flex;gap:6px;justify-content:center}
+.clinic-slider .dots button{width:8px;height:8px;border-radius:999px;border:none;background:rgba(255,255,255,.45);cursor:pointer}
+.clinic-slider .dots button[aria-selected="true"]{background:#fff;width:22px;border-radius:999px}
+</style>
 </head>
 <body>
   <div class="topbar">
@@ -69,7 +88,7 @@
       <div style="font-size:14px;color:#667085">Trang chủ › Hệ thống cơ sở › Phòng khám Hồng Phúc</div>
       <div class="hero-grid">
         <div class="hero-card">
-          <h1 style="margin:0 0 8px">Phòng Khám Đa Khoa Hồng Phúc </h1>
+          <h1 style="margin:0 0 8px">Phòng Khám Đa Khoa Hồng Phúc – Ninh Bình</h1>
           <div style="display:flex;gap:12px;flex-wrap:wrap;color:#667085;font-size:14px">
             <span>🏥 Phường Vị Khê, Tỉnh Ninh Bình</span><span>✔️ Đã được cấp phép</span><span>⭐ 4.8/5 (1.256 đánh giá)</span>
           </div>
@@ -79,7 +98,38 @@
             <div class="card"><b>Đặt lịch online</b><p>Ưu tiên tiếp nhận – Giảm thời gian chờ.</p></div>
           </div>
         </div>
-        <div class="hero-card"><img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0f4?q=80&w=1200&auto=format&fit=crop" alt="Cơ sở phòng khám"/></div>
+        <div class="hero-card"><!-- SLIDER CƠ SỞ PHÒNG KHÁM -->
+<section id="co-so" class="clinic-slider" tabindex="0" aria-label="Hình ảnh cơ sở phòng khám">
+  <div class="slides">
+    <figure class="slide is-active">
+      <img src="images/6075588556161223572.jpg" alt="Mặt tiền phòng khám Hồng Phúc" loading="eager">
+      <figcaption>Mặt tiền phòng khám</figcaption>
+    </figure>
+    <figure class="slide">
+      <img src="images/6075588556161223573.jpg" alt="Quầy tiếp đón" loading="lazy">
+      <figcaption>Quầy tiếp đón</figcaption>
+    </figure>
+    <figure class="slide">
+      <img src="images/6075588556161223574.jpg" alt="Khu lễ tân" loading="lazy">
+      <figcaption>Khu lễ tân</figcaption>
+    </figure>
+    <figure class="slide">
+      <img src="images/6075588556161223575.jpg" alt="Sảnh chờ" loading="lazy">
+      <figcaption>Sảnh chờ</figcaption>
+    </figure>
+    <figure class="slide">
+      <img src="images/6075588556161223576.jpg" alt="Không gian chờ trung tâm" loading="lazy">
+      <figcaption>Không gian chờ trung tâm</figcaption>
+    </figure>
+    <figure class="slide">
+      <img src="images/6075588556161223577.jpg" alt="Khu ngồi chờ" loading="lazy">
+      <figcaption>Khu ngồi chờ</figcaption>
+    </figure>
+  </div>
+  <button class="nav prev" aria-label="Ảnh trước">‹</button>
+  <button class="nav next" aria-label="Ảnh sau">›</button>
+  <div class="dots" role="tablist" aria-label="Chọn ảnh"></div>
+</section></div>
       </div>
     </div>
   </section>
@@ -170,7 +220,7 @@
             <div><label>Thời gian mong muốn</label><input name="preferred_datetime" type="datetime-local" /></div>
           </div>
           <div><label>Ghi chú</label><textarea name="note" placeholder="Triệu chứng, mong muốn bác sĩ, BHYT…"></textarea></div>
-          <input type="hidden" name="source" value="Website đặt lịch" />
+          <input type="hidden" name="source" value="landing_quan1" />
           <div id="bookStatus"></div>
           <div style="margin-top:12px"><button class="btn primary" type="submit" id="bookSubmit">Gửi yêu cầu</button></div>
         </form>
@@ -249,5 +299,51 @@
       }
     });
   </script>
+<script>
+(() => {
+  const root = document.querySelector('.clinic-slider');
+  if (!root) return;
+  const slides = Array.from(root.querySelectorAll('.slide'));
+  const dotsWrap = root.querySelector('.dots');
+  let i = 0, timer = null, AUTOPLAY_MS = 4000, paused = false;
+
+  slides.forEach((_, idx) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('role', 'tab');
+    b.setAttribute('aria-label', 'Ảnh ' + (idx + 1));
+    b.addEventListener('click', () => go(idx));
+    dotsWrap.appendChild(b);
+  });
+
+  function go(n) {
+    slides[i].classList.remove('is-active');
+    i = (n + slides.length) % slides.length;
+    slides[i].classList.add('is-active');
+    Array.from(dotsWrap.children).forEach((d, j) =>
+      d.setAttribute('aria-selected', j === i ? 'true' : 'false')
+    );
+  }
+
+  function next(){ go(i+1); }
+  function prev(){ go(i-1); }
+
+  root.querySelector('.next').addEventListener('click', next);
+  root.querySelector('.prev').addEventListener('click', prev);
+
+  function start(){ if(timer) clearInterval(timer); timer = setInterval(()=>!paused && next(), AUTOPLAY_MS); }
+  root.addEventListener('mouseenter', ()=> paused = true);
+  root.addEventListener('mouseleave', ()=> paused = false);
+
+  let sx=0, dx=0;
+  root.addEventListener('touchstart', e=> sx = e.touches[0].clientX, {passive:true});
+  root.addEventListener('touchmove', e=> dx = e.touches[0].clientX - sx, {passive:true});
+  root.addEventListener('touchend', ()=> { if(Math.abs(dx)>40) (dx<0?next():prev()); sx=dx=0; });
+
+  root.addEventListener('keydown', e=> { if(e.key==='ArrowRight') next(); if(e.key==='ArrowLeft') prev(); });
+
+  go(0); start();
+})();
+</script>
 </body>
 </html>
